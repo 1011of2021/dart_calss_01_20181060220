@@ -42,10 +42,20 @@ final _router = shelf_router.Router()
     '/time',
     (request) => Response.ok(DateTime.now().toUtc().toIso8601String()),
   )
-  ..get('/sum/<a|[0-9]+>/<b|[0-9]+>', _sumHandler);
+  ..get('/sum/<a|[0-9]+>/<b|[0-9]+>', _sumHandler)
+  ..get('/printNum/<a|[0-9]+>/<b|[0-9]+>', _printNumHandler);
 
 Response _helloWorldHandler(Request request) => Response.ok('Hello, World!');
-
+Response _printNumHandler(request,String a,String b){
+  final aNum = int.parse(a);
+  final bNum = int.parse(b);
+  String out='';
+  for(var i=aNum;i<=bNum;i++){
+    var tmp= i.toString();
+    out=out+tmp;
+  }
+  return Response.ok(out); 
+}
 Response _sumHandler(request, String a, String b) {
   final aNum = int.parse(a);
   final bNum = int.parse(b);
